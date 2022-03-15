@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+<div class="container">
+
+    <form action="/" method="POST">
+        <div class="mb-3">
+            <label for="title" class="form-label">Todo Title</label>
+            <input type="text" class="form-control" name="title" id="title" aria-describedby="emailHelp" required>
+        </div>
+        <div class="mb-3">
+            <label for="desc" class="form-label">Todo Description</label>
+            <input type="text" class="form-control" name="desc" id="desc" required>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+<div class="container my-3">
+    <h1>Your Todos</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Created</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for todo in allTodo  %}
+                
+            <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{todo.title}}</td>
+                <td>{{todo.desc}}</td>
+                <td>{{todo.created}}</td>
+                <td><a href="/delete/{{todo.sno}}/"> <button class="btn btn-dark btn-sm">Delete</button> </a>
+                <a href="/update/{{todo.sno}}/"> <button class="btn btn-dark btn-sm">Update</button> </a></td>
+            </tr>
+            {% else %}
+        <div class="alert alert-dark" role="alert">
+            There are no todos yet
+        </div>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock content %}
